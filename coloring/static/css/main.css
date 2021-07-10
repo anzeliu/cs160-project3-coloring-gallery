@@ -13,3 +13,13 @@
 .padIcon{
     height: 50px;
 }
+
+#psheet{
+    position: absolute;
+    top: 11vh;
+    left: 4vw;
+    height: 75vh;
+    width: 92vw;
+    background-color: #fdfcdc;
+    transform: rotate(-2.1deg);
+}
