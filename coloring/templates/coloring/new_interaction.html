@@ -40,7 +40,7 @@
 </style>
 
 <script type="text/javascript" canvas="canvas">
-	var pencil, fill;
+	var pencil, marker, highlighter, fill;
 	function undo() {};
 	function redo() {};
 	window.onload = function() {
@@ -65,33 +65,41 @@
 				
 
 
-				pencil = new Tool();
+				
 				var paths = [];
 				var undonePaths = [];
 				var picture = new Group();
 				var curPath = null;
 
-
-				pencil.onMouseDown = function(event) {
+				function drawDown(event, color, width) {
 					paths.push(new Path());
 					curPath = paths[paths.length - 1];
-					curPath.strokeColor = "purple";
-					
-					console.log("hi");
+					curPath.strokeColor = color;
+					curPath.strokeWidth = width;
+					curPath.strokeCap = 'round';
+					curPath.strokeJoin = 'round';
 				}
-				pencil.onMouseDrag = function(event) {
-					curPath.add(event.point);
-				}
-				pencil.onMouseUp = function(event) {
-					if(event.point.getDistance(curPath.firstSegment.point) < 20) {
+
+				function drawUp(event, closeDist) {
+					if(event.point.getDistance(curPath.firstSegment.point) < closeDist) {
 						curPath.closed = true;
 						curPath.fill = true;
 						curPath.fillColor = "red";
 						curPath.fillColor.alpha = .0000001; //This is the best workaround I've ever devised. -Nicholas
 					}
-					
 					picture.addChild(curPath);
-					console.log(picture.children)
+				}
+
+				pencil = new Tool();
+				pencil.onMouseDown = function(event) {
+					drawDown(event, "grey", 5);
+				}
+				pencil.onMouseDrag = function(event) {
+					curPath.add(event.point);
+				}
+				pencil.onMouseUp = function(event) {
+					drawUp(event, 20);
+					console.log(picture.children);
 				}
 
 				fill = new Tool();
@@ -105,6 +113,31 @@
 					}
 				}
 
+				marker = new Tool();
+				marker.onMouseDown = function(event) {
+					drawDown(event, "black", 25);
+				}
+				marker.onMouseDrag = function(event) {
+					curPath.add(event.point);
+				}
+				marker.onMouseUp = function(event) {
+					drawUp(event, 40);
+				}
+
+
+
+				highlighter = new Tool();
+				highlighter.onMouseDown = function(event) {
+					drawDown(event, "yellow", 25);
+					curPath.opacity = .7;
+				}
+				highlighter.onMouseDrag = function(event) {
+					curPath.add(event.point);
+				}
+				highlighter.onMouseUp = function(event) {
+					drawUp(event, 40);
+					curPath.lastSegment.opacity = 0;
+				}
 
 				undo = function(){
 					if (paths.length == 0){
@@ -159,12 +192,12 @@
 		
 		<div class="row" style="position: absolute; top: 80vh; left: 0; height: 20vh; width: 100vw;">
 			<div class="col-1"></div>
-			<div class="col-2" style="background-color: grey;" href="#" onclick="pencil.activate();">
+			<div class="col-2" style="background-color: grey;" onclick="pencil.activate();">
 			</div>
-			<div class="col-2" style="background-color: black;"></div>
-			<div class="col-2" style="background-color: yellow;"></div>
+			<div class="col-2" style="background-color: black;" onclick="marker.activate();"></div>
+			<div class="col-2" style="background-color: yellow;" onclick="highlighter.activate();"></div>
 			<div class="col-2" style="background-color: white;"></div>
-			<div class="col-2" style="background-color: red;" href="#" onclick="fill.activate();">
+			<div class="col-2" style="background-color: red;" onclick="fill.activate();">
 			</div>
 			<div class="col-1"></div>
 		</div>
