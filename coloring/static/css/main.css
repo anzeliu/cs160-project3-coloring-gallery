@@ -1,0 +1,15 @@
+.padButton{
+    background-color: #ffDDD2;
+    color: #e29578;
+    border-width: .3vh;
+    border-style: solid;
+    border-color: #e29578;
+    font-size: 5vh;
+    font-weight: 900;
+    text-align: center;
+    line-height: 16.6vw;
+}
+
+.padIcon{
+    height: 50px;
+}
