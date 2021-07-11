@@ -49,24 +49,7 @@
 
 		function init(custom){
 			paper.setup(canvas);
-			with(paper) {
-				// var point1 = new Point(100, 100);
-				// var point2 = new Point(100, 0);
-
-				// var a = new Color(1,0,0,1);
-				// var b = new Color(0,1,0,1);
-
-				// var myPath = new Path();
-				// myPath.strokeColor = "purple"
-
-				// myPath.add(point1, point2);
-				// myPath.add(new Point(200, 100));
-				// myPath.add(point1);
-				// myPath.fillColor = "green";
-				
-
-
-				
+			with(paper) {	
 				var paths = [];
 				var undonePaths = [];
 				var picture = new Group();
@@ -183,10 +166,10 @@
 	}
 </script>
 </head>
-<body>
+<body style="overflow: hidden;">
 	<div class="container-fluid" style="height: 100vh; background-image: url(./../static/coloring/images/pexels-fwstudio-172296.jpeg); background-size: 100% 100%;">
 		<div class="row" style="padding-top: 0; margin-top: 0; height: 16.6vw">
-			<div class="col-2 padButton">
+			<div class="col-2 padButton" onclick="location.href = 'home';">
 				<i class="bi bi-house-door-fill"></i>
 			</div>
 			<div class="col-2 padButton" onclick="undo()">
@@ -198,7 +181,7 @@
 			<div class="col-2 padButton">
 				<i class="bi bi-save2-fill"></i>
 			</div>
-			<div class="col-4">
+			<div class="col-4 colorButton">
 				Select Color
 			</div>
 		</div>
@@ -209,22 +192,27 @@
 		
 		<div class="row" style="position: absolute; top: 80vh; left: 0; height: 20vh; width: 100vw;">
 			<div class="col-1"></div>
-			<div id="pencilDiv" class="col-2" style="background-color: grey;" >
-				<div id="pencilIcon" class = "icon">Pencil</div>
+			<div id="pencilDiv" class="col-2">
+				<img id="pencilIcon" src ="{% static 'coloring/images/pencil.png' %}" alt="pencil" class="icon" style="width: 100%;"></img>
+				<!-- <div id="pencilIcon" class = "icon" style="background-image: url(./../static/coloring/images/pencil.png); background-size: 100% 100%;">Pencil</div> -->
 			</div>
-			<div id="maerkerDiv" class="col-2" style="background-color: black;" onclick="marker.activate();">
-				<div id="markerIcon" class = "icon">Marker</div>
+			<div id="markerDiv" class="col-2">
+				<img id="markerIcon" src ="{% static 'coloring/images/marker.png' %}" alt="marker" class="icon" style=" width: 100%;"></img>
+				<!-- <div id="markerIcon" class = "icon">Marker</div> -->
 			</div>
-			<div id="highlighterDiv" class="col-2" style="background-color: yellow;" onclick="highlighter.activate();">
-				<div id="highlighterIcon" class = "icon">Highlighter</div>
+			<div id="highlighterDiv" class="col-2">
+				<img id="highlighterIcon" src ="{% static 'coloring/images/highlighter.png' %}" alt="highlighter" class="icon" style="width: 100%;"></img>
+				<!-- <div id="highlighterIcon" class = "icon">Highlighter</div> -->
 			</div>
-			<div id="eraserDiv" class="col-2" style="background-color: white;">
-				<div id="eraserIcon" class = "icon">Eraser</div>
+			<div id="eraserDiv" class="col-2">
+				<img id="eraserIcon" src ="{% static 'coloring/images/eraser.png' %}" alt="eraser" class="icon" style="width: 100%;"></img>
+				<!-- <div id="eraserIcon" class = "icon">Eraser</div> -->
 			</div>
-			<div id="fillDiv" class="col-2" style="background-color: red;" onclick="fill.activate();">
-				<div id="fillIcon" class = "icon">Fill</div>
+			<div id="fillDiv" class="col-3">
+				<img id="fillIcon" src ="{% static 'coloring/images/fill.png' %}" alt="fill" class="icon" style="width: 100%; height: 30vh;"></img>
+				<!-- <div id="fillIcon" class = "icon">Fill</div> -->
 			</div>
-			<div class="col-1"></div>
+			<!-- <div class="col-1"></div> -->
 		</div>
 		
 	</div>

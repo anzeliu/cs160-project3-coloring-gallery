@@ -1,9 +1,10 @@
+/* draw pad */
 .padButton{
     background-color: #ffDDD2;
-    color: #e29578;
+    color: black;
     border-width: .3vh;
     border-style: solid;
-    border-color: #e29578;
+    border-color: black;
     font-size: 5vh;
     font-weight: 900;
     text-align: center;
@@ -28,3 +29,52 @@
     position: relative;
     padding-top: 5vh;
 }
+
+.colorButton{
+    color: black;
+    text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
+    border-width: .3vh;
+    border-style: solid;
+    border-color: black;
+    text-align: center;
+    background-color: red;
+    font-size: 5.5vw;
+    line-height: 16.6vw;
+}
+
+/* home screen */
+#startPaper{
+    width: 80%;
+    height: 95%;
+    margin:auto;
+    background: #FFF384;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    transform: rotate(-4.1deg);
+}
+
+#paperInterior{
+    color: black;
+    text-decoration: none; 
+    background-color: none;
+    transform: rotate(4.1deg);
+    margin: auto;
+    text-align: center;
+    font-size: 16vw;
+    padding-top: 4.5vh;
+}
+
+#startButton{
+    background: #FFF384;
+}
+
+
+#galleryButton{
+    
+    border-style: solid;
+    border-width: .3vh;
+    font-size: 16vw;
+    text-align: center;
+}
+
