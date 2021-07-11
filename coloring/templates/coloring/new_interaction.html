@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'coloring/vendors/bootstrap/css/bootstrap.css' %}" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	<script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'coloring/vendors/jquery-ui/jquery-ui.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
 <!-- Hello! -->
 <style type="text/css">
@@ -40,7 +41,7 @@
 </style>
 
 <script type="text/javascript" canvas="canvas">
-	var pencil, marker, highlighter, fill;
+	var pencil, marker, highlighter, eraser, fill;
 	function undo() {};
 	function redo() {};
 	window.onload = function() {
@@ -107,7 +108,10 @@
 					console.log("clicked fill");
 					var hit = picture.hitTest(event.point, { tolerance: 10, segments: true, stroke: true, fill: true});
 					if (hit) {
-						hit.item.fillColor = "black";
+						if (hit.item.closed){
+							hit.item.fillColor = "black";
+						}
+						
 					} else {
 						console.log("no hit")
 					}
@@ -137,6 +141,19 @@
 				highlighter.onMouseUp = function(event) {
 					drawUp(event, 40);
 					curPath.lastSegment.opacity = 0;
+				}
+
+				//TODO: Make Eraser tool
+				eraser = new Tool();
+				eraser.onMouseDown = function(event) {
+					drawDown(event, "grey", 5);
+				}
+				eraser.onMouseDrag = function(event) {
+					curPath.add(event.point);
+				}
+				eraser.onMouseUp = function(event) {
+					drawUp(event, 20);
+					console.log(picture.children);
 				}
 
 				undo = function(){
@@ -192,17 +209,61 @@
 		
 		<div class="row" style="position: absolute; top: 80vh; left: 0; height: 20vh; width: 100vw;">
 			<div class="col-1"></div>
-			<div class="col-2" style="background-color: grey;" onclick="pencil.activate();">
+			<div id="pencilDiv" class="col-2" style="background-color: grey;" >
+				<div id="pencilIcon" class = "icon">Pencil</div>
 			</div>
-			<div class="col-2" style="background-color: black;" onclick="marker.activate();"></div>
-			<div class="col-2" style="background-color: yellow;" onclick="highlighter.activate();"></div>
-			<div class="col-2" style="background-color: white;"></div>
-			<div class="col-2" style="background-color: red;" onclick="fill.activate();">
+			<div id="maerkerDiv" class="col-2" style="background-color: black;" onclick="marker.activate();">
+				<div id="markerIcon" class = "icon">Marker</div>
+			</div>
+			<div id="highlighterDiv" class="col-2" style="background-color: yellow;" onclick="highlighter.activate();">
+				<div id="highlighterIcon" class = "icon">Highlighter</div>
+			</div>
+			<div id="eraserDiv" class="col-2" style="background-color: white;">
+				<div id="eraserIcon" class = "icon">Eraser</div>
+			</div>
+			<div id="fillDiv" class="col-2" style="background-color: red;" onclick="fill.activate();">
+				<div id="fillIcon" class = "icon">Fill</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
 		
 	</div>
-	
+	<script type="text/javascript">
+			var foo = {
+				bar1: function(){
+					alert('working');
+				}
+			};
+			function pressMButton() {
+				marker.activate();
+				$(".icon").css("padding-top", "5vh");
+				$("#markerIcon").css("padding-top", "0vh");
+			}
+			function pressHButton() {
+				highlighter.activate();
+				$(".icon").css("padding-top", "5vh");
+				$("#highlighterIcon").css("padding-top", "0vh");
+			}
+			function pressEButton() {
+				eraser.activate();
+				$(".icon").css("padding-top", "5vh");
+				$("#eraserIcon").css("padding-top", "0vh");
+			}
+			function pressFButton() {
+				fill.activate();
+				$(".icon").css("padding-top", "5vh");
+				$("#fillIcon").css("padding-top", "0vh");
+			}
+			function pressPButton() {
+				pencil.activate();
+				$(".icon").css("padding-top", "5vh");
+				$("#pencilIcon").css("padding-top", "0vh");
+			}
+			$('body').on("click", "#pencilDiv", pressPButton);
+			$('body').on("click", "#markerDiv", pressMButton);
+			$('body').on("click", "#highlighterDiv", pressHButton);
+			$('body').on("click", "#eraserDiv", pressEButton);
+			$('body').on("click", "#fillDiv", pressFButton);
+	</script>
 </body>
 </html>

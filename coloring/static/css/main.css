@@ -23,3 +23,8 @@
     background-color: #fdfcdc;
     transform: rotate(-2.1deg);
 }
+
+.icon{
+    position: relative;
+    padding-top: 5vh;
+}
