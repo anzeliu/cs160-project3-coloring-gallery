@@ -79,6 +79,7 @@
 						curPath.fillColor.alpha = .0000001; //This is the best workaround I've ever devised. -Nicholas
 					}
 					picture.addChild(curPath);
+					undonePaths = [];
 				}
 
 				pencil = new Tool();
@@ -166,6 +167,7 @@
 					var np = new Path();
 					np.importJSON(p);
 					paths.push(np);
+					picture.addChild(np);
 				}
 				getPicJSON = function(){
 					var pic = project.exportJSON();
