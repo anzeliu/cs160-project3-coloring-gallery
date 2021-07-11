@@ -59,12 +59,16 @@
 			with(paper) {	
 				var paths = [];
 				var undonePaths = [];
+				var previousGroups = [];
+				var undoneGroups = [];
 				var picture = new Group();
 				var curPath = null;
 
 				function drawDown(event, color, width) {
-					paths.push(new Path());
-					curPath = paths[paths.length - 1];
+					previousGroups.push(picture.exportJSON());
+					// paths.push(new Path());
+					// curPath = paths[paths.length - 1];
+					curPath = new Path();
 					curPath.strokeColor = color;
 					curPath.strokeWidth = width;
 					curPath.strokeCap = 'round';
@@ -79,7 +83,8 @@
 						curPath.fillColor.alpha = .0000001; //This is the best workaround I've ever devised. -Nicholas
 					}
 					picture.addChild(curPath);
-					undonePaths = [];
+					// undonePaths = [];
+					undoneGroups = [];
 				}
 
 				pencil = new Tool();
@@ -96,6 +101,7 @@
 
 				fill = new Tool();
 				fill.onMouseDown = function(event) {
+					previousGroups.push(picture.exportJSON());
 					console.log("clicked fill");
 					var hit = picture.hitTest(event.point, { tolerance: 10, segments: true, stroke: true, fill: true});
 					if (hit) {
@@ -106,6 +112,7 @@
 					} else {
 						console.log("no hit")
 					}
+					undoneGroups = [];
 				}
 
 				marker = new Tool();
@@ -149,25 +156,43 @@
 				nothing = new Tool();
 
 				undo = function(){
-					if (paths.length == 0){
+					// if (paths.length == 0){
+					// 	return;
+					// }
+					// var p = paths.pop();
+					// undonePaths.push(p.exportJSON());
+					// picture.removeChildren(picture.children.length - 1);
+					// p.remove();
+
+					if (previousGroups.length == 0){
+						console.log("no previous groups");
 						return;
 					}
-					var p = paths.pop();
-					undonePaths.push(p.exportJSON());
-					picture.removeChildren(picture.children.length - 1);
-					p.remove();
+					if (previousGroups.length == 1) {
+						undoneGroups.push(picture.exportJSON());
+						picture.removeChildren();
+						previousGroups.pop();
+						return;
+					}
+					undoneGroups.push(picture.exportJSON());
+					picture.importJSON(previousGroups.pop());
 
 				}
 				redo = function(){
-					if (undonePaths.length == 0) {
+					// if (undonePaths.length == 0) {
+					// 	return;
+					// }
+					// var p = undonePaths.pop();
+					// var np = new Path();
+					// np.importJSON(p);
+					// paths.push(np);
+					// picture.addChild(np);
+
+					if (undoneGroups.length == 0) {
 						return;
 					}
-
-					var p = undonePaths.pop();
-					var np = new Path();
-					np.importJSON(p);
-					paths.push(np);
-					picture.addChild(np);
+					previousGroups.push(picture.exportJSON());
+					picture.importJSON(undoneGroups.pop());
 				}
 				getPicJSON = function(){
 					var pic = project.exportJSON();
