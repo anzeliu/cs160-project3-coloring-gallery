@@ -41,14 +41,21 @@
 </style>
 
 <script type="text/javascript" canvas="canvas">
-	var pencil, marker, highlighter, eraser, fill;
+	var pencil, marker, highlighter, eraser, fill, nothing;
 	function undo() {};
 	function redo() {};
+	function getPicJSON() {};
+	var canvas, saveCanvas;
+	var mainScope, saveScope;
 	window.onload = function() {
-		var canvas = document.getElementById('myCanvas');
-
+		canvas = document.getElementById('myCanvas');
+		saveCanvas = document.getElementById("saveCanvas");
+		mainScope = new paper.PaperScope();
+		saveScope = new paper.PaperScope();
 		function init(custom){
-			paper.setup(canvas);
+			saveScope.setup(saveCanvas);
+			mainScope.setup(canvas);
+			mainScope.activate();
 			with(paper) {	
 				var paths = [];
 				var undonePaths = [];
@@ -138,6 +145,7 @@
 					drawUp(event, 20);
 					console.log(picture.children);
 				}
+				nothing = new Tool();
 
 				undo = function(){
 					if (paths.length == 0){
@@ -145,6 +153,7 @@
 					}
 					var p = paths.pop();
 					undonePaths.push(p.exportJSON());
+					picture.removeChildren(picture.children.length - 1);
 					p.remove();
 
 				}
@@ -157,6 +166,11 @@
 					var np = new Path();
 					np.importJSON(p);
 					paths.push(np);
+				}
+				getPicJSON = function(){
+					var pic = project.exportJSON();
+					// var pic = picture.exportJSON();
+					return pic;
 				}
 			}
 		}
@@ -178,7 +192,7 @@
 			<div class="col-2 padButton" onclick="redo()">
 				<i class="bi bi-arrow-clockwise"></i>
 			</div>
-			<div class="col-2 padButton">
+			<div id="saveButton" class="col-2 padButton" onclick="saveClick()">
 				<i class="bi bi-save2-fill"></i>
 			</div>
 			<div class="col-4 colorButton">
@@ -189,7 +203,26 @@
 			<canvas id="myCanvas" width="750px" height="750px" style="width: 87vw; height: 73vh;"></canvas>
 		</div>
 		
-		
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content" style="width: 90%;">
+				<div class="container-fluid" style="border-style: solid; border-width: .3vh;">
+					<div class="row" style="font-size: 5vh; border-bottom-style: solid; border-width: .3vh;">
+						<div class="col-2 modalClose" style="border-right-style: solid; border-right-width: .3vh; text-align: center; background-color: lightgray;"> X </div>
+						<div class="col-10"> Save & Export</div>
+					</div>
+					<div class="row">
+						<canvas id="saveCanvas" width="1000px" height="1400px" style="width: 100%; height: 100%;"></canvas>
+					</div>
+					<div class="row" style="font-size: 5vh; background-color: #83c5be; border-top-style: solid;">
+						<div class="col-12" style="text-align: center;">
+							Save To Gallery
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="row" style="position: absolute; top: 80vh; left: 0; height: 20vh; width: 100vw;">
 			<div class="col-1"></div>
 			<div id="pencilDiv" class="col-2">
@@ -217,41 +250,89 @@
 		
 	</div>
 	<script type="text/javascript">
-			var foo = {
-				bar1: function(){
-					alert('working');
-				}
-			};
+			var currToolButton = pressPButton;
 			function pressMButton() {
 				marker.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#markerIcon").css("padding-top", "0vh");
+				currToolButton = pressMButton;
 			}
 			function pressHButton() {
 				highlighter.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#highlighterIcon").css("padding-top", "0vh");
+				currToolButton = pressHButton;
 			}
 			function pressEButton() {
 				eraser.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#eraserIcon").css("padding-top", "0vh");
+				currToolButton = pressEButton;
 			}
 			function pressFButton() {
 				fill.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#fillIcon").css("padding-top", "0vh");
+				currToolButton = pressFButton;
 			}
 			function pressPButton() {
 				pencil.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#pencilIcon").css("padding-top", "0vh");
+				currToolButton = pressPButton;
 			}
 			$('body').on("click", "#pencilDiv", pressPButton);
 			$('body').on("click", "#markerDiv", pressMButton);
 			$('body').on("click", "#highlighterDiv", pressHButton);
 			$('body').on("click", "#eraserDiv", pressEButton);
 			$('body').on("click", "#fillDiv", pressFButton);
+
+			
+
+			function saveClick(){
+				var picToSave = getPicJSON();
+				console.log(picToSave);
+				saveScope.activate();
+				with(paper) {
+					project.activeLayer.removeChildren();
+					project.importJSON(picToSave);
+					// var g = new Group();
+					// g.importJSON(picToSave);
+				}
+				$("#saveCanvas").css("width", "100%");
+				$("#saveCanvas").css("height", "100%");
+				nothing.activate();
+			}
+
+
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("saveButton");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("modalClose")[0];
+
+			// When the user clicks on the button, open the modal
+			btn.onclick = function() {
+				saveClick();
+				modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+				mainScope.activate();
+				currToolButton();
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+			}
 	</script>
 </body>
 </html>
