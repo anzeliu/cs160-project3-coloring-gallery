@@ -37,7 +37,6 @@
     border-style: solid;
     border-color: black;
     text-align: center;
-    background-color: red;
     font-size: 5.5vw;
     line-height: 16.6vw;
 }
@@ -63,10 +62,6 @@
     width: 80%; /* Could be more or less, depending on screen size */
   }
   
-  /* The Close Button */
-  .modalClose {
-    
-  }
   
   .close:hover,
   .close:focus {

@@ -45,13 +45,22 @@
 	function undo() {};
 	function redo() {};
 	function getPicJSON() {};
+	function getPreviousGroups() {};
+	function getUndoneGroups() {};
 	var canvas, saveCanvas;
 	var mainScope, saveScope;
+	var colorFromPicker;
 	window.onload = function() {
 		canvas = document.getElementById('myCanvas');
 		saveCanvas = document.getElementById("saveCanvas");
 		mainScope = new paper.PaperScope();
 		saveScope = new paper.PaperScope();
+		
+		colorFromPicker = sessionStorage.getItem("color");
+		if (colorFromPicker == null){
+			colorFromPicker = "grey";
+		}
+		$(".strokeColor").css("background-color", colorFromPicker);
 		function init(custom){
 			saveScope.setup(saveCanvas);
 			mainScope.setup(canvas);
@@ -60,16 +69,30 @@
 				var paths = [];
 				var undonePaths = [];
 				var previousGroups = [];
+				var localPrevGroups = sessionStorage.getItem("previousGroups");
+				try{
+					previousGroups = JSON.parse(localPrevGroups);
+				} catch {
+					var previousGroups = [];
+				}
 				var undoneGroups = [];
+				var localUndoneGroups = sessionStorage.getItem("undoneGroups");
+				try{
+					undoneGroups = JSON.parse(localUndoneGroups);
+				} catch {
+					undoneGroups = [];
+				}
 				var picture = new Group();
+				picture.importJSON(sessionStorage.getItem("currentPic"));
+				if (picture == null) {picture = new Group()}
 				var curPath = null;
 
-				function drawDown(event, color, width) {
+				function drawDown(event, width) {
 					previousGroups.push(picture.exportJSON());
 					// paths.push(new Path());
 					// curPath = paths[paths.length - 1];
 					curPath = new Path();
-					curPath.strokeColor = color;
+					curPath.strokeColor = colorFromPicker;
 					curPath.strokeWidth = width;
 					curPath.strokeCap = 'round';
 					curPath.strokeJoin = 'round';
@@ -89,7 +112,7 @@
 
 				pencil = new Tool();
 				pencil.onMouseDown = function(event) {
-					drawDown(event, "grey", 5);
+					drawDown(event, 5);
 				}
 				pencil.onMouseDrag = function(event) {
 					curPath.add(event.point);
@@ -101,23 +124,25 @@
 
 				fill = new Tool();
 				fill.onMouseDown = function(event) {
-					previousGroups.push(picture.exportJSON());
+					
 					console.log("clicked fill");
 					var hit = picture.hitTest(event.point, { tolerance: 10, segments: true, stroke: true, fill: true});
 					if (hit) {
 						if (hit.item.closed){
-							hit.item.fillColor = "black";
+							previousGroups.push(picture.exportJSON());
+							undoneGroups = [];
+							hit.item.fillColor = colorFromPicker;
 						}
 						
 					} else {
 						console.log("no hit")
 					}
-					undoneGroups = [];
+					
 				}
 
 				marker = new Tool();
 				marker.onMouseDown = function(event) {
-					drawDown(event, "black", 25);
+					drawDown(event, 25);
 				}
 				marker.onMouseDrag = function(event) {
 					curPath.add(event.point);
@@ -130,7 +155,7 @@
 
 				highlighter = new Tool();
 				highlighter.onMouseDown = function(event) {
-					drawDown(event, "yellow", 25);
+					drawDown(event, 25);
 					curPath.opacity = .7;
 				}
 				highlighter.onMouseDrag = function(event) {
@@ -144,7 +169,7 @@
 				//TODO: Make Eraser tool
 				eraser = new Tool();
 				eraser.onMouseDown = function(event) {
-					drawDown(event, "grey", 5);
+					drawDown(event, 5);
 				}
 				eraser.onMouseDrag = function(event) {
 					curPath.add(event.point);
@@ -199,18 +224,25 @@
 					// var pic = picture.exportJSON();
 					return pic;
 				}
+				getPreviousGroups = function() {
+					return JSON.stringify(previousGroups);
+				}
+				getUndoneGroups = function(){
+					return JSON.stringify(undoneGroups);
+				}
 			}
 		}
 
 		// Set up the mandala interactivity.
 		init(true);
+		pressPButton();
 	}
 </script>
 </head>
 <body style="overflow: hidden;">
 	<div class="container-fluid" style="height: 100vh; background-image: url(./../static/coloring/images/pexels-fwstudio-172296.jpeg); background-size: 100% 100%;">
 		<div class="row" style="padding-top: 0; margin-top: 0; height: 16.6vw">
-			<div class="col-2 padButton" onclick="location.href = 'home';">
+			<div class="col-2 padButton" onclick="goHome()">
 				<i class="bi bi-house-door-fill"></i>
 			</div>
 			<div class="col-2 padButton" onclick="undo()">
@@ -222,7 +254,7 @@
 			<div id="saveButton" class="col-2 padButton" onclick="saveClick()">
 				<i class="bi bi-save2-fill"></i>
 			</div>
-			<div class="col-4 colorButton">
+			<div class="col-4 colorButton strokeColor" onclick="goToColorPicker()">
 				Select Color
 			</div>
 		</div>
@@ -329,6 +361,23 @@
 				$("#saveCanvas").css("width", "100%");
 				$("#saveCanvas").css("height", "100%");
 				nothing.activate();
+			}
+
+			function goHome(){
+				sessionStorage.setItem('currentPic', null); 
+				sessionStorage.setItem('previousGroups', []); 
+				sessionStorage.setItem('undoneGroups', []); 
+				location.href = 'home';
+			}
+
+			function goToColorPicker(){
+				currentPic = getPicJSON();
+				prevGroups = getPreviousGroups();
+				unGroups = getUndoneGroups();
+				sessionStorage.setItem("currentPic", currentPic);
+				sessionStorage.setItem('previousGroups', prevGroups); 
+				sessionStorage.setItem('undoneGroups', unGroups); 
+				location.href = "colorPicker";
 			}
 
 			//Base Modal code from W3school
