@@ -59,6 +59,16 @@
             transform: skew(-20deg) translateY(-30px) scale(1.05);
             filter: drop-shadow(5px 5px 10px black);
         }
+        .parallelogramLong {
+            width: 120px;
+			height: 300px;
+			background: #f1f1f1;
+			padding: 5px;
+			margin: 10px 20px 20px 10px;
+            transform: skew(-20deg) translateY(-30px) scale(1.05);
+            filter: drop-shadow(5px 5px 10px black);
+        }
+        
 	</style>
 </head>
 <body>
@@ -77,52 +87,60 @@
         </div>
 	</div>
 	<div class="container-fluid" style="height: 95vh; background-image: url(./../static/coloring/images/Gallery.jpeg); background-size: 100% 100%;">
-        <div style="padding: 50px 50px 50px 50px;">
-        <div class = 'container-fluid' style="height: 80vh">
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#FF0000" onclick = "color('#FF0000')" class = "col parallelogram" style = 'background-color: #FF0000'></div>
-            <div id = "#FF8181" onclick = "color('#FF8181')" class = "col parallelogram" style = 'background-color: #FF8181'></div>
-            <div  id = "#9C0303" onclick = "color('#9C0303')" class = "col parallelogram" style = 'background-color: #9C0303'></div>
+        <div style="padding: 20px 50px 30px 50px;">
+            <div class = "container-fluid">
+                <div id = "selectedColor" class = "row d-flex justify-content-center" style = "border: 5px solid #000000">
+                    <h1 style = "font-size: 4rem; -webkit-text-stroke: 2px black; color: white;"> Selected Color </h1>
+                </div>
+            </div>
         </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#FF8A00" onclick = "color('#FF8A00')" class = "col parallelogram" style = 'background-color: #FF8A00'></div>
-            <div id = "#FFC581" onclick = "color('#FFC581')" class = "col parallelogram" style = 'background-color: #FFC581'></div>
-            <div id = "#904E00" onclick = "color('#904E00')" class = "col parallelogram" style = 'background-color: #904E00'></div>
+        <div style="padding: 0 50px 50px 50px;">
+            <div class = 'container-fluid' style="height: 80vh">
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#FF0000" onclick = "color('#FF0000')" class = "col parallelogram" style = 'background-color: #FF0000' ></div>
+                    <div id = "#FF8181" onclick = "color('#FF8181')" class = "col parallelogram" style = 'background-color: #FF8181'></div>
+                    <div  id = "#9C0303" onclick = "color('#9C0303')" class = "col parallelogram" style = 'background-color: #9C0303'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#FF8A00" onclick = "color('#FF8A00')" class = "col parallelogram" style = 'background-color: #FF8A00'></div>
+                    <div id = "#FFC581" onclick = "color('#FFC581')" class = "col parallelogram" style = 'background-color: #FFC581'></div>
+                    <div id = "#904E00" onclick = "color('#904E00')" class = "col parallelogram" style = 'background-color: #904E00'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#FAFF00" onclick = "color('#FAFF00')" class = "col parallelogram" style = 'background-color: #FAFF00'></div>
+                    <div id = "#FFF492" onclick = "color('#FFF492')" class = "col parallelogram" style = 'background-color: #FFF492'></div>
+                    <div id = "#A99801" onclick = "color('#A99801')" class = "col parallelogram" style = 'background-color: #A99801'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#05FF00" onclick = "color('#05FF00')" class = "col parallelogram" style = 'background-color: #05FF00'></div>
+                    <div id = "#AEFF92" onclick = "color('#AEFF92')" class = "col parallelogram" style = 'background-color: #AEFF92'></div>
+                    <div id = "#009806" onclick = "color('#009806')" class = "col parallelogram" style = 'background-color: #009806'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px">
+                    <div id = "#00A3FF" onclick = "color('#00A3FF')" class = "col parallelogram" style = 'background-color: #00A3FF'></div>
+                    <div id = "#9CDBFF" onclick = "color('#9CDBFF')" class = "col parallelogram" style = 'background-color: #9CDBFF'></div>
+                    <div id = "#0075B7" onclick = "color('#0075B7')" class = "col parallelogram" style = 'background-color: #0075B7'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#9E00FF" onclick = "color('#9E00FF')" class = "col parallelogram" style = 'background-color: #9E00FF'></div>
+                    <div id = "#DDA6FF" onclick = "color('#DDA6FF')" class = "col parallelogram" style = 'background-color: #DDA6FF'></div>
+                    <div id = "#4F0080" onclick = "color('#4F0080')" class = "col parallelogram" style = 'background-color: #4F0080'></div>
+                </div>
+                <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
+                    <div id = "#000000" onclick = "color('#000000')" class = "col parallelogram" style = 'background-color: #000000'></div>
+                    <div id = "#838383" onclick = "color('#838383')" class = "col parallelogram" style = 'background-color: #838383'></div>
+                    <div id = "#FFFFFF" onclick = "color('#FFFFFF')" class = "col parallelogram" style = 'background-color: #FFFFFF'></div>
+                </div>
+	        </div>
         </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#FAFF00" onclick = "color('#FAFF00')" class = "col parallelogram" style = 'background-color: #FAFF00'></div>
-            <div id = "#FFF492" onclick = "color('#FFF492')" class = "col parallelogram" style = 'background-color: #FFF492'></div>
-            <div id = "#A99801" onclick = "color('#A99801')" class = "col parallelogram" style = 'background-color: #A99801'></div>
-        </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#05FF00" onclick = "color('#05FF00')" class = "col parallelogram" style = 'background-color: #05FF00'></div>
-            <div id = "#AEFF92" onclick = "color('#AEFF92')" class = "col parallelogram" style = 'background-color: #AEFF92'></div>
-            <div id = "#009806" onclick = "color('#009806')" class = "col parallelogram" style = 'background-color: #009806'></div>
-        </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 10px 10px">
-            <div id = "#00A3FF" onclick = "color('#00A3FF')" class = "col parallelogram" style = 'background-color: #00A3FF'></div>
-            <div id = "#9CDBFF" onclick = "color('#9CDBFF')" class = "col parallelogram" style = 'background-color: #9CDBFF'></div>
-            <div id = "#0075B7" onclick = "color('#0075B7')" class = "col parallelogram" style = 'background-color: #0075B7'></div>
-        </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#9E00FF" onclick = "color('#9E00FF')" class = "col parallelogram" style = 'background-color: #9E00FF'></div>
-            <div id = "#DDA6FF" onclick = "color('#DDA6FF')" class = "col parallelogram" style = 'background-color: #DDA6FF'></div>
-            <div id = "#4F0080" onclick = "color('#4F0080')" class = "col parallelogram" style = 'background-color: #4F0080'></div>
-        </div>
-        <div class = "row" style = "height: 14%; margin: 0 0 20px 20px;">
-            <div id = "#000000" onclick = "color('#000000')" class = "col parallelogram" style = 'background-color: #000000'></div>
-            <div id = "#FFFFFF" onclick = "color('#FFFFFF')" class = "col parallelogram" style = 'background-color: #838383'></div>
-            <div id = "#FFFFFF" onclick = "color('#FFFFFF')" class = "col parallelogram" style = 'background-color: #FFFFFF'></div>
-        </div>
-	</div>
     </div>
-    </div>
-    
+
 <script>
     var savedColor;
 	function color(hex) {
         document.getElementById(hex).className = "col parallelogramLarge";
     	savedColor = hex; 
+        document.getElementById("selectedColor").style.backgroundColor = hex;
         deselect();
         saveToNewInteraction();
  	}
@@ -133,7 +151,7 @@
                     "#05FF00", "#AEFF92", "#009806",  
                     "#00A3FF", "#9CDBFF", "#0075B7",
                     "#9E00FF", "#DDA6FF", "#4F0080", 
-                    "#000000", "#FFFFFF", "#FFFFFF"];
+                    "#000000", "#838383", "#FFFFFF"];
 	
     function deselect() {
         for (let i = 0; i < 21; i++) {
@@ -145,7 +163,11 @@
 	}
 
     function saveToNewInteraction() {
-        localStorage.setItem("savedColor", davedColor);
+        localStorage.setItem("savedColor", savedColor);
+    }
+
+    function returnToDrawPad() {
+        localStorage.setItem("returnToDrawPad", 'true');
     }
 </script>
 </body>
