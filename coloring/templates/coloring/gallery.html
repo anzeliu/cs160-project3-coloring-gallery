@@ -106,8 +106,120 @@
     		cursor: pointer;
 		}
 	</style>
+	<script>
+		
+		window.onload = function() {
+		var savedPics = JSON.parse(localStorage.getItem("savedPics"));
+		var savedDates = JSON.parse(localStorage.getItem("savedDates"));
+		var postItCanvases = [];
+		var postItScopes = [];
+		for (var i = 0; i < savedPics.length; i++){
+			var name = ""
+			try{
+				name = savedDates[i];
+			} catch {
+				name = "item " + i;
+			}
+			createPostIt(i, savedPics[i], name);
+		}
+
+		function createPostIt(id, picture, timeText) {
+			var parent = document.getElementById("postIts");
+			var newDiv = document.createElement("div");
+			newDiv.setAttribute("class", 'col-5');
+			newDiv.setAttribute("style", "height: 25vh; margin: 30px");
+			var btn = document.createElement("button");
+			btn.setAttribute("class", 'picbtn');
+			btn.setAttribute("style", "transform: rotate(" + (Math.random() - .5) * 7 + "deg)"); //Let's Gooooooo
+			// btn.setAttribute("style", "Background-color: #FFF384; border-style: solid");
+			
+			//Image setup
+			var img = document.createElement("canvas");
+			img.setAttribute("id", id);
+			img.setAttribute("width", "1000px");
+			img.setAttribute("height", "1000px");
+			img.setAttribute("class", "postItPic");
+			var s = new paper.PaperScope();
+			s.setup(img);
+			s.activate();
+			with(paper){
+				project.activeLayer.removeChildren();
+				project.importJSON(picture);
+			}
+			
+			postItScopes.push(s);
+			postItCanvases.push(img);
+
+			btn.appendChild(img);
+
+			// Time Setup
+			var time = document.createElement("div");
+			time.setAttribute("class", "postItTime");
+			time.appendChild(document.createTextNode(timeText));
+			btn.appendChild(time);
+
+			newDiv.appendChild(btn);
+
+			//Modal
+			var mod = document.createElement("div");
+			mod.setAttribute("class", "modal");
+			var modContent = document.createElement("div");
+			modContent.setAttribute("class", "modal-content");
+			modContent.setAttribute("style", "width: 90%; padding: 0 0 0 0");
+				var modContainer = document.createElement("div");
+				modContainer.setAttribute("class", "container-fluid");
+				modContainer.setAttribute("style", "border-style: solid; border-width: .3vh;");
+					var r1 = document.createElement("div");
+					r1.setAttribute("class", "row");
+					r1.setAttribute("style", "font-size: 5vh; border-bottom-style: solid; border-width: .3vh;");
+						var col11 = document.createElement("div");
+						col11.setAttribute("class", "col-2");
+						col11.setAttribute("style", "border-right-style: solid; border-right-width: .3vh; text-align: center; background-color: lightgray;");
+						col11.appendChild(document.createTextNode("X"));
+						col11.onclick = function() {
+							mod.style.display = "none";
+						}
+						r1.appendChild(col11);
+						var col12 = document.createElement("div");
+						col12.setAttribute("class", "col-10");
+						col12.appendChild(document.createTextNode(timeText));
+						r1.appendChild(col12);
+					modContainer.appendChild(r1);
+					var r2 = document.createElement("div");
+						var imgb = document.createElement("canvas");
+						imgb.setAttribute("id", "2" + id);
+						imgb.setAttribute("width", "1500px");
+						imgb.setAttribute("height", "1500px");
+						var s = new paper.PaperScope();
+						s.setup(imgb);
+						s.activate();
+						with(paper){
+							project.activeLayer.removeChildren();
+							project.importJSON(picture);
+						}
+						r2.appendChild(imgb);
+					r2.setAttribute("class", "row");
+					modContainer.appendChild(r2);
+				modContent.appendChild(modContainer);
+			mod.appendChild(modContent);
+			newDiv.appendChild(mod);
+
+			parent.appendChild(newDiv);
+
+			btn.onclick = function() {
+				console.log("hey");
+				mod.style.display = "block";
+			}
+			$("#" + id).css("width", "100%");
+			$("#" + id).css("height", "80%");
+			$("#2" + id).css("width", "100%");
+			$("#2" + id).css("height", "100%");
+		}
+	}
+	</script>
 </head>
-<body>
+<!-- Wood Texture from https://www.freecreatives.com/textures/seamless-wood-textures.html -->
+<body style="background-image: url(./../static/coloring/images/woodWall.jpeg); background-size: 100% 100%; background-repeat: repeat-y;">
 	<div class="container-fluid">
 		<div class="row align-items-center" id = 'titlePlate'>
 			<div class="col-1">
@@ -122,9 +234,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid" style="height: 95vh; background-image: url(./../static/coloring/images/Gallery.jpeg); background-size: 100% 100%;">
-		<div class = "row align-items-center"> 
-			<div class = 'col-6 col-sm-6 d-flex justify-content-center'>
+	<div id="m" class="container-fluid" style="height: 95vh;">
+		<div id="postIts" class = "row align-items-center" style = "height: 25vh;"> 
+			<!-- <div class = 'col-6 col-sm-6 d-flex justify-content-center'>
 					<button id = "myBtn1" class = 'btn btn-info galleryImage' style = 'background-image: url(./../static/coloring/images/GalleryImage1.jpeg); background-size: scale-down; background-position: center'>
 					</button>
 					<div id = 'myModal1' class = 'modal'>
@@ -139,8 +251,8 @@
 							</div>
       					</div>
     				</div>
-			</div>
-			<div class = 'col-6 col-sm-6 d-flex justify-content-center'>
+			</div>  -->
+			<!-- <div class = 'col-6 col-sm-6 d-flex justify-content-center'>
 				<button id = "myBtn2" class = 'btn btn-info galleryImage' style = 'background-image: url(./../static/coloring/images/GalleryImage2.jpeg); background-size: scale-down; background-position: center'>
 				</button>
  				<div id = 'myModal2' class = 'modal'>
@@ -166,33 +278,11 @@
 				<div class = "galleryDate" style = "background-color: 'grey'">
 				<h1 class = "d-flex justify-content-center"> 6-23-2021 </h1>
 				</div>
-			</div>	
+			</div> -->
 		</div>
-		<div class = "row align-items-center"> 
-			<div class = 'col-6 col-sm-6 d-flex justify-content-center'>
-					<button id = "myBtn3" class = 'btn btn-info galleryImage' style = 'background-image: url(./../static/coloring/images/GalleryImage3.jpeg); background-size: scale-down; background-position: center'>
-					</button>
-					<div id = 'myModal3' class = 'modal'>
-    					<div class="modal-content">
-							<div class="modal-header">
-        						<button type="button" class="close3" data-dismiss="modal" aria-label="Close">
-          						<span aria-hidden="true">&times;</span>
-        						</button>
-      						</div>
-      						<div class="modal-body d-flex justify-content-center">
-								<img class="img-fluid" src="{% static 'coloring/images/GalleryImage3.jpeg' %}" style = "width: 1000px">
-							</div>
-      					</div>
-    				</div>
-			</div>
-			<div class = "w-100 d-none d-md-block"></div>
-			<div class = "col-6 col-sm-6 d-flex justify-content-center">
-				<div class = "galleryDate" style = "background-color: 'grey'">
-				<h1 class = "d-flex justify-content-center"> 6-9-2021 </h1>
-				</div>
-			</div>
-		</div>
+		
 	</div>
+	
 <script>
 	// Get modal
 	var modal1 = document.getElementById('myModal1');
@@ -231,6 +321,10 @@
 			modal3.style.display = "none";
     	}
 	}
+	
+	
+	
+	
 </script>
 </body>
 </html>

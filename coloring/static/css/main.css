@@ -119,3 +119,25 @@
     text-align: center;
 }
 
+/* gallery */
+.postItPic{
+    /* background-color: #FFF384; */
+    border-bottom-style: dashed;
+    border-bottom-width: .3vh;
+    
+}
+
+.postItTime{
+    text-align: center;
+    font-size: 3vh;
+}
+
+.picbtn{
+    background-color: #FFF384;
+    border-style: solid;
+    border-color: black;
+    border-width: .3vh;
+    height: 25vh;
+    width: 25vh;
+    box-shadow: .5vh .5vh rgba(0,0,0,.5);
+}
