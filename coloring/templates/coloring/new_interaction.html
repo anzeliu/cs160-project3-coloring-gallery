@@ -41,6 +41,7 @@
 </style>
 
 <script type="text/javascript" canvas="canvas">
+	console.log("script 1 runs");
 	var pencil, marker, highlighter, eraser, fill, nothing;
 	function undo() {};
 	function redo() {};
@@ -58,7 +59,7 @@
 		
 		colorFromPicker = sessionStorage.getItem("color");
 		if (colorFromPicker == null){
-			colorFromPicker = "grey";
+			colorFromPicker = "#FF0000";
 		}
 		$(".strokeColor").css("background-color", colorFromPicker);
 		function init(custom){
@@ -108,6 +109,8 @@
 					picture.addChild(curPath);
 					// undonePaths = [];
 					undoneGroups = [];
+					$('#redoButton').css("color", "rgba(0,0,0,0.5)");
+					$('#undoButton').css("color", "black");
 				}
 
 				pencil = new Tool();
@@ -131,6 +134,8 @@
 						if (hit.item.closed){
 							previousGroups.push(picture.exportJSON());
 							undoneGroups = [];
+							$('#redoButton').css("color", "rgba(0,0,0,0.5)");
+							$('#undoButton').css("color", "black");
 							hit.item.fillColor = colorFromPicker;
 						}
 						
@@ -197,8 +202,11 @@
 						undoneGroups.push(picture.exportJSON());
 						picture.removeChildren();
 						previousGroups.pop();
+						$('#redoButton').css("color", "black");
+						$('#undoButton').css("color", "rgba(0,0,0,0.5)");
 						return;
 					}
+					$('#redoButton').css("color", "black");
 					undoneGroups.push(picture.exportJSON());
 					picture.importJSON(previousGroups.pop());
 
@@ -218,6 +226,10 @@
 					}
 					previousGroups.push(picture.exportJSON());
 					picture.importJSON(undoneGroups.pop());
+					$('#undoButton').css("color", "black");
+					if (undoneGroups.length == 0) {
+						$('#redoButton').css("color", "rgba(0,0,0,0.5)");
+					}
 				}
 				getPicJSON = function(){
 					var pic = project.exportJSON();
@@ -237,6 +249,7 @@
 		init(true);
 		pressPButton();
 	}
+	
 </script>
 </head>
 <body style="overflow: hidden;">
@@ -245,10 +258,10 @@
 			<div class="col-2 padButton" onclick="goHome()">
 				<i class="bi bi-house-door-fill"></i>
 			</div>
-			<div class="col-2 padButton" onclick="undo()">
+			<div id="undoButton" class="col-2 padButton" onclick="undo()">
 				<i class="bi bi-arrow-counterclockwise"></i>
 			</div>
-			<div class="col-2 padButton" onclick="redo()">
+			<div id = "redoButton" class="col-2 padButton" onclick="redo()">
 				<i class="bi bi-arrow-clockwise"></i>
 			</div>
 			<div id="saveButton" class="col-2 padButton" onclick="saveClick()">
@@ -418,7 +431,7 @@
 				savedPics.push(picToSave);
 				console.log(savedPics);
 				localStorage.setItem("savedPics", JSON.stringify(savedPics));
-				location.href = 'gallery'
+				// location.href = 'gallery'
 			}
 	</script>
 </body>

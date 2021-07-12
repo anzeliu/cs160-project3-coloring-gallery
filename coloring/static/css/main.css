@@ -30,6 +30,13 @@
     padding-top: 5vh;
 }
 
+#undoButton{
+    color: rgba(0,0,0,.5);
+}
+#redoButton{
+    color: rgba(0,0,0,.5);
+}
+
 .colorButton{
     color: black;
     text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
