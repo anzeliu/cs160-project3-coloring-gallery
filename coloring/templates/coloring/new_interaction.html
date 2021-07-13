@@ -66,6 +66,7 @@
 			saveScope.setup(saveCanvas);
 			mainScope.setup(canvas);
 			mainScope.activate();
+			console.log("running init");
 			with(paper) {	
 				var paths = [];
 				var undonePaths = [];
@@ -84,8 +85,12 @@
 					undoneGroups = [];
 				}
 				var picture = new Group();
-				picture.importJSON(sessionStorage.getItem("currentPic"));
-				if (picture == null) {picture = new Group()}
+				try {
+					picture.importJSON(sessionStorage.getItem("currentPic"));
+				} catch {
+					picture = new Group();
+				}
+				
 				var curPath = null;
 
 				function drawDown(event, width) {
