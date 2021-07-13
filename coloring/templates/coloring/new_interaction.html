@@ -48,6 +48,7 @@
 	function getPicJSON() {};
 	function getPreviousGroups() {};
 	function getUndoneGroups() {};
+	function clearImage() {};
 	var canvas, saveCanvas;
 	var mainScope, saveScope;
 	var colorFromPicker = localStorage.getItem("selectedColor");
@@ -258,6 +259,11 @@
 				getUndoneGroups = function(){
 					return JSON.stringify(undoneGroups);
 				}
+				clearImage = function() {
+					picture.removeChildren();
+					undoneGroups = [];
+					previousGroups = [];
+				}
 			}
 		}
 
@@ -289,6 +295,9 @@
 		</div>
 		<div id="psheet">
 			<canvas id="myCanvas" width="750px" height="750px" style="width: 87vw; height: 73vh;"></canvas>
+			<div id="newPage">
+				+
+			</div>
 		</div>
 		
 		<div id="myModal" class="modal">
@@ -310,6 +319,25 @@
 						</div>
 					</div>
 				</a>
+			</div>
+		</div>
+
+		<div id="NPM" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content" style="width: 90%; top: 25vh">
+				<div class="container-fluid" style="border-style: solid; border-width: .3vh;">
+					<div class="row" style="font-size: 5vh; border-bottom-style: solid; border-width: .3vh;">
+						<div id="CloseNPM" class="col-2 modalClose" style="border-right-style: solid; border-right-width: .3vh; text-align: center; background-color: lightgray;"> X </div>
+						<div class="col-10" style="font-size: 2.7vh; text-align: center; padding-top: 1.8vh;">This will discard the current picture</div>
+					</div>
+					<div class="row d-flex justify-content-center" onclick="clearImage(); newPageModal.style.display='none'" style="font-size: 5vh; background-color: #83c5be; border-style: solid; border-width: .3vh; border-color: #000000;">
+						<div class="col-12" style="text-align: center;">
+							Clear Image
+						</div>
+					</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 
@@ -433,12 +461,7 @@
 				currToolButton();
 			}
 
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-			}
+			
 
 			function saveToGallery() {
 				var savedPics = JSON.parse(localStorage.getItem("savedPics"));
@@ -461,6 +484,26 @@
 				var savedDate = "" + month + "-" + day + "-" + year;
 				savedDates.push(savedDate);
 				localStorage.setItem("savedDates", JSON.stringify(savedDates));
+			}
+
+			var newPageBtn = document.getElementById("newPage");
+			var newPageModal = document.getElementById("NPM");
+			var newPageModalClose = document.getElementById("CloseNPM");
+			newPageBtn.onclick = function(){
+				newPageModal.style.display = "block";
+			}
+			newPageModalClose.onclick = function(){
+				newPageModal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+			if (event.target == newPageModal) {
+				newPageModal.style.display = "none";
+			}
 			}
 	</script>
 </body>

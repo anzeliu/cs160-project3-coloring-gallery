@@ -48,6 +48,19 @@
     line-height: 16.6vw;
 }
 
+#newPage{
+    position: relative;
+    top: -74.7vh;
+    left: 83vw;
+    height: 5vh;
+    width: 5vh;
+    border-width: .5vh;
+    border-style: groove;
+    text-align: center;
+    font-size: 5vh;
+    line-height: 3.5vh;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
