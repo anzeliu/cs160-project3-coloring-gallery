@@ -46,6 +46,7 @@
 	function undo() {};
 	function redo() {};
 	function getPicJSON() {};
+	function getPicGroupJSON() {};
 	function getPreviousGroups() {};
 	function getUndoneGroups() {};
 	function clearImage() {};
@@ -75,7 +76,9 @@
 				var localPrevGroups = sessionStorage.getItem("previousGroups");
 				try{
 					previousGroups = JSON.parse(localPrevGroups);
+					console.log(previousGroups);
 				} catch {
+					console.log("problem importing prev groups");
 					var previousGroups = [];
 				}
 				var undoneGroups = [];
@@ -83,13 +86,22 @@
 				try{
 					undoneGroups = JSON.parse(localUndoneGroups);
 				} catch {
+					console.log("problem importing undone groups");
 					undoneGroups = [];
 				}
 				var picture = new Group();
 				try {
 					picture.importJSON(sessionStorage.getItem("currentPic"));
 				} catch {
-					picture = new Group();
+					console.log("problem importing pic");
+					// picture = new Group();
+				}
+
+				if (undoneGroups.length != 0) {
+					$('#redoButton').css("color", "black");
+				}
+				if (previousGroups.length != 0) {
+					$('#undoButton').css("color", "black");
 				}
 				
 				var curPath = null;
@@ -252,6 +264,9 @@
 					var pic = project.exportJSON();
 					// var pic = picture.exportJSON();
 					return pic;
+				}
+				getPicGroupJSON = function() {
+					return picture.exportJSON();
 				}
 				getPreviousGroups = function() {
 					return JSON.stringify(previousGroups);
@@ -421,21 +436,25 @@
 				nothing.activate();
 			}
 
-			function goHome(){
-				sessionStorage.setItem('currentPic', null); 
-				sessionStorage.setItem('previousGroups', []); 
-				sessionStorage.setItem('undoneGroups', []); 
-				location.href = 'home';
-			}
-
-			function goToColorPicker(){
-				currentPic = getPicJSON();
+			function saveState() {
+				currentPic = getPicGroupJSON();
 				prevGroups = getPreviousGroups();
 				unGroups = getUndoneGroups();
 				sessionStorage.setItem("currentPic", currentPic);
 				sessionStorage.setItem('previousGroups', prevGroups); 
 				sessionStorage.setItem('undoneGroups', unGroups); 
+			}
+
+			function goHome(){
+				location.href = 'home';
+			}
+
+			function goToColorPicker(){
 				location.href = "colorPicker";
+			}
+
+			window.onunload = function(){
+				saveState();
 			}
 
 			//Base Modal code from W3school
