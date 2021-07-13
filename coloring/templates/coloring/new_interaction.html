@@ -92,11 +92,17 @@
 				var picture = new Group();
 				try {
 					picture.importJSON(sessionStorage.getItem("currentPic"));
+					console.log(picture);
 				} catch {
 					console.log("problem importing pic");
 					// picture = new Group();
 				}
-
+				if (undoneGroups == null) {
+					undoneGroups = [];
+				}
+				if (previousGroups == null) {
+					previousGroups = [];
+				}
 				if (undoneGroups.length != 0) {
 					$('#redoButton').css("color", "black");
 				}
