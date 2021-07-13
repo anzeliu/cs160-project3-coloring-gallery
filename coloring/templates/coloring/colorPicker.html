@@ -44,10 +44,10 @@
 
 		.parallelogram {
 			width: 100px;
-			height: 150px;
+			height: 180px;
 			background: #f1f1f1;
 			padding: 5px;
-			margin: 10px 20px 20px 10px;
+			margin: 10px 20px 10px 10px;
             transform: skew(-20deg);
 		}
         .parallelogramLarge {
@@ -75,11 +75,11 @@
 	<div class="container-fluid">
         <div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #000000;">
 			<div class="col-2">
-				<div onclick="location.href='new_interaction';" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<a id = "exit" onclick = "saveCurrentColor" href="new_interaction" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
 					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
-				</div>
+				</a>
 			</div>
 			<div class="col-10 d-flex justify-content-center" style = "border-left: 5px solid #000000">
 				<h1 style = "font-size: 8rem"> Color Picker </h1>
@@ -89,7 +89,7 @@
 	<div class="container-fluid" style="height: 95vh; background-image: url(./../static/coloring/images/Gallery.jpeg); background-size: 100% 100%;">
         <div style="padding: 20px 50px 30px 50px;">
             <div class = "container-fluid">
-                <div id = "selectedColor" class = "row d-flex justify-content-center" style = "border: 5px solid #000000">
+                <div id = "selectedColorDisplay" class = "row d-flex justify-content-center" style = "border: 5px solid #000000">
                     <h1 style = "font-size: 5rem; -webkit-text-stroke: 2px black; color: white;"> Selected Color </h1>
                 </div>
             </div>
@@ -136,11 +136,19 @@
     </div>
 
 <script>
-    var savedColor;
-	function color(hex) {
+    window.onload = function() {
+        var currentColor = sessionStorage.getItem("currentColor");
+        if (currentColor == null) {
+            currentColor = "#FF0000";
+        }
+        document.getElementById("selectedColorDisplay").style.backgroundColor = currentColor;
+    }
+    
+	var savedColor;
+    function color(hex) {
         document.getElementById(hex).className = "col parallelogramLarge";
     	savedColor = hex; 
-        document.getElementById("selectedColor").style.backgroundColor = hex;
+        document.getElementById("selectedColorDisplay").style.backgroundColor = hex;
         deselect();
         saveToNewInteraction();
  	}
@@ -165,14 +173,8 @@
     function saveToNewInteraction() {
         sessionStorage.setItem("color", savedColor);
     }
-
-    function returnToDrawPad() {
-        var selectedColor = JSON.parse(localStorage.getItem("selectedColor"));
-        if (selectedColor == null) {
-            selectedColor = [];
-        }
-        selectedColor.push(savedDate);
-        localStorage.setItem("selectedColor", JSON.stringify(selectedColor));
+    function saveCurrentColor() {
+        sessionStorage.setItem("currentColor", currentColor);
     }
 </script>
 </body>
