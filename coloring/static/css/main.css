@@ -51,14 +51,14 @@
 #newPage{
     position: relative;
     top: -74.7vh;
-    left: 83vw;
-    height: 5vh;
-    width: 5vh;
+    left: 79.5vw;
+    height: 7vh;
+    width: 7vh;
     border-width: .5vh;
     border-style: groove;
     text-align: center;
-    font-size: 5vh;
-    line-height: 3.5vh;
+    font-size: 10vh;
+    line-height: 4vh;
 }
 
 .modal {

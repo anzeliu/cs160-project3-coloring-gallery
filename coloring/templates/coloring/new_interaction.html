@@ -182,7 +182,7 @@
 					curPath.add(event.point);
 				}
 				marker.onMouseUp = function(event) {
-					drawUp(event, 40);
+					drawUp(event, 60);
 				}
 
 
@@ -196,7 +196,7 @@
 					curPath.add(event.point);
 				}
 				highlighter.onMouseUp = function(event) {
-					drawUp(event, 40);
+					drawUp(event, 60);
 					curPath.lastSegment.opacity = 0;
 				}
 
@@ -284,7 +284,25 @@
 
 		// Set up the mandala interactivity.
 		init(true);
-		pressPButton();
+		switch(sessionStorage.getItem("currentTool")) {
+			case "pencil":
+				pressPButton();
+				break;
+			case "marker":
+				pressMButton();
+				break;
+			case "highlighter":
+				pressHButton();
+				break;
+			case "eraser":
+				pressEButton();
+				break;
+			case "fill":
+				pressFButton();
+				break;
+			default:
+				pressPButton();
+		}
 	}
 	
 </script>
@@ -388,30 +406,35 @@
 				$(".icon").css("padding-top", "5vh");
 				$("#markerIcon").css("padding-top", "0vh");
 				currToolButton = pressMButton;
+				sessionStorage.setItem('currentTool', "marker");
 			}
 			function pressHButton() {
 				highlighter.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#highlighterIcon").css("padding-top", "0vh");
 				currToolButton = pressHButton;
+				sessionStorage.setItem('currentTool', "highlighter");
 			}
 			function pressEButton() {
 				eraser.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#eraserIcon").css("padding-top", "0vh");
 				currToolButton = pressEButton;
+				sessionStorage.setItem('currentTool', "eraser");
 			}
 			function pressFButton() {
 				fill.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#fillIcon").css("padding-top", "0vh");
 				currToolButton = pressFButton;
+				sessionStorage.setItem('currentTool', "fill");
 			}
 			function pressPButton() {
 				pencil.activate();
 				$(".icon").css("padding-top", "5vh");
 				$("#pencilIcon").css("padding-top", "0vh");
 				currToolButton = pressPButton;
+				sessionStorage.setItem('currentTool', "pencil");
 			}
 			$('body').on("click", "#pencilDiv", pressPButton);
 			$('body').on("click", "#markerDiv", pressMButton);
@@ -443,6 +466,7 @@
 				sessionStorage.setItem("currentPic", currentPic);
 				sessionStorage.setItem('previousGroups', prevGroups); 
 				sessionStorage.setItem('undoneGroups', unGroups); 
+				
 			}
 
 			function goHome(){
