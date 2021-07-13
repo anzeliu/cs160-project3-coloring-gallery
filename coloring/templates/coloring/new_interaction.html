@@ -50,7 +50,7 @@
 	function getUndoneGroups() {};
 	var canvas, saveCanvas;
 	var mainScope, saveScope;
-	var colorFromPicker;
+	var colorFromPicker = localStorage.getItem("selectedColor");
 	window.onload = function() {
 		canvas = document.getElementById('myCanvas');
 		saveCanvas = document.getElementById("saveCanvas");
@@ -94,6 +94,17 @@
 					// curPath = paths[paths.length - 1];
 					curPath = new Path();
 					curPath.strokeColor = colorFromPicker;
+					curPath.strokeWidth = width;
+					curPath.strokeCap = 'round';
+					curPath.strokeJoin = 'round';
+				}
+
+				function eraseDown(event, width) {
+					previousGroups.push(picture.exportJSON());
+					// paths.push(new Path());
+					// curPath = paths[paths.length - 1];
+					curPath = new Path();
+					curPath.strokeColor = "#fbfbdb";
 					curPath.strokeWidth = width;
 					curPath.strokeCap = 'round';
 					curPath.strokeJoin = 'round';
@@ -174,7 +185,7 @@
 				//TODO: Make Eraser tool
 				eraser = new Tool();
 				eraser.onMouseDown = function(event) {
-					drawDown(event, 5);
+					eraseDown(event, 100);
 				}
 				eraser.onMouseDrag = function(event) {
 					curPath.add(event.point);
@@ -288,12 +299,12 @@
 					</div>
 				</div>
 				<a href = "/coloring/gallery" class = "btn d-flex justify-content-center" style="font-size: 5vh; background-color: #83c5be; border-style: solid; border-width: .3vh; border-color: #000000;" role = "button">
-						<div class="row" onclick="saveToGallery(); saveDateToGallery()">
-							<div class="col-12" style="text-align: center;">
-								Save To Gallery
-							</div>
+					<div class="row" onclick="saveToGallery(); saveDateToGallery()">
+						<div class="col-12" style="text-align: center;">
+							Save To Gallery
 						</div>
-					</a>
+					</div>
+				</a>
 			</div>
 		</div>
 

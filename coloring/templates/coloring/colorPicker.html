@@ -75,11 +75,11 @@
 	<div class="container-fluid">
         <div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #000000;">
 			<div class="col-2">
-				<a href = '/coloring/new_interaction' class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<div onclick="location.href='new_interaction';" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
 					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
-				</a>
+				</div>
 			</div>
 			<div class="col-10 d-flex justify-content-center" style = "border-left: 5px solid #000000">
 				<h1 style = "font-size: 8rem"> Color Picker </h1>
@@ -167,7 +167,12 @@
     }
 
     function returnToDrawPad() {
-        localStorage.setItem("returnToDrawPad", 'true');
+        var selectedColor = JSON.parse(localStorage.getItem("selectedColor"));
+        if (selectedColor == null) {
+            selectedColor = [];
+        }
+        selectedColor.push(savedDate);
+        localStorage.setItem("selectedColor", JSON.stringify(selectedColor));
     }
 </script>
 </body>
