@@ -164,7 +164,10 @@
 .picbtn {
     background-color: #FFF384;
     border-style: solid;
-    border-color: black;
+    border-left-color: #FFF384;
+    border-top-color: #FFF384;
+    border-right-color: #006d77;
+    border-bottom-color: #006d77;
     border-width: .3vh;
     height: 25vh;
     width: 25vh;

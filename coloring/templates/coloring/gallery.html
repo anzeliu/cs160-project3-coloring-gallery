@@ -69,26 +69,33 @@
 
 		/* The Modal (background) */
 		.modal {
-    		display: none; /* Hidden by default */
-    		position: fixed; /* Stay in place */
-    		z-index: 1; /* Sit on top */
-    		padding-top: 100px; /* Location of the box */
-    		left: 0;
-    		top: 0;
-    		width: 100%; /* Full width */
-    		height: 100%; /* Full height */
-    		overflow: auto; /* Enable scroll if needed */
-    		background-color: rgb(0,0,0); /* Fallback color */
-    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    	display: none;
+    	/* Hidden by default */
+    	position: fixed;
+    	/* Stay in place */
+    	z-index: 1;
+    	/* Sit on top */
+    	left: 0;
+    	top: 0;
+    	width: 100%;
+    	/* Full width */
+    	height: 100%;
+    	/* Full height */
+    	overflow: auto;
+    	/* Enable scroll if needed */
+    	background-color: fbfbdb;
+    	/* Fallback color */
+    	background-color: rgba(251, 251, 219, 0.4);
+    	/* Black w/ opacity */
 		}
 
 		/* Modal Content */
 		.modal-content {
     		background-color: #fbfbdb;
-    		margin: auto;
-    		padding: 10px;
+    		margin: 15% auto;
+    		/* 15% from the top and centered */
     		border: 1px solid #888;
-    		width: 100%;
+    		width: 80%;
 		}
 
 		/* The Close Button */
@@ -175,7 +182,7 @@
 				modContainer.setAttribute("style", "border-style: solid; border-width: .3vh;");
 					var r1 = document.createElement("div");
 					r1.setAttribute("class", "row");
-					r1.setAttribute("style", "font-size: 5vh; border-bottom-style: solid; border-width: .3vh;");
+					r1.setAttribute("style", "font-size: 5vh; border-bottom-style: solid; border-width: .3vh; background: #ffddd2");
 						var col11 = document.createElement("div");
 						col11.setAttribute("class", "col-2");
 						col11.setAttribute("style", "border-right-style: solid; border-right-width: .3vh; text-align: center; background-color: lightgray;");
@@ -225,19 +232,19 @@
 <!-- Wood Texture from https://www.freecreatives.com/textures/seamless-wood-textures.html -->
 <body style="background-image: url(./../static/coloring/images/woodWall.jpeg); background-size: 100% 100%; background-repeat: repeat-y;">
 	<div class="container-fluid">
-		<div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #000000;">
+		<div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #907f9f;">
 			<div class="col-2">
-				<a href = '/coloring/home' class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<a href = '/coloring/home' style = "background-color: #006d77" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
 					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="=120" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
   						<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
 					</svg>
 				</a>
 			</div>
-			<div class="col-8 d-flex justify-content-center" style = "border-left: 5px solid #000000; border-right: 5px solid #000000;">
-				<h1 style = "font-size: 8rem"> Gallery </h1>
+			<div class="col-8 d-flex justify-content-center" style = "border-left: 5px solid #907f9f; border-right: 5px solid #907f9f;">
+				<h1 style = "font-size: 8rem; color: #006d77"> Gallery </h1>
 			</div>
 			<div class="col-2">
-				<a href = '/coloring/new_interaction' class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<a href = '/coloring/new_interaction' style = "background-color: #006d77" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
 					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
   						<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
   						<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
