@@ -117,7 +117,7 @@
 		var savedDates = JSON.parse(localStorage.getItem("savedDates"));
 		var postItCanvases = [];
 		var postItScopes = [];
-		for (var i = 0; i < savedPics.length; i++){
+		for (var i = savedPics.length - 1; i >= 0; i--){
 			var name = ""
 			try{
 				name = savedDates[i];
@@ -192,7 +192,7 @@
 					var r2 = document.createElement("div");
 						var imgb = document.createElement("canvas");
 						imgb.setAttribute("id", "2" + id);
-						imgb.setAttribute("width", "1500px");
+						imgb.setAttribute("width", "900px");
 						imgb.setAttribute("height", "1500px");
 						var s = new paper.PaperScope();
 						s.setup(imgb);
