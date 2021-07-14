@@ -227,7 +227,7 @@
 						curPath.closed = true;
 						curPath.fill = true;
 						curPath.fillColor = "red";
-						curPath.fillColor.alpha = .0000001; //This is the best workaround I've ever devised. -Nicholas
+						curPath.fillColor.alpha = .000001; //This is the best workaround I've devised. -Nicholas
 					}
 					picture.addChild(curPath);
 					// undonePaths = [];
@@ -244,7 +244,7 @@
 					curPath.add(event.point);
 				}
 				pencil.onMouseUp = function(event) {
-					drawUp(event, 20);
+					drawUp(event, 35);
 					console.log(picture.children);
 				}
 
@@ -276,7 +276,7 @@
 					curPath.add(event.point);
 				}
 				marker.onMouseUp = function(event) {
-					drawUp(event, 60);
+					drawUp(event, 90);
 				}
 
 
@@ -290,7 +290,7 @@
 					curPath.add(event.point);
 				}
 				highlighter.onMouseUp = function(event) {
-					drawUp(event, 60);
+					drawUp(event, 90);
 					curPath.lastSegment.opacity = 0;
 				}
 				var mask = new Group();
@@ -435,13 +435,13 @@
 		</div>
 		<div id="psheet">
 			<canvas id="myCanvas" width="750px" height="750px" style="width: 87vw; height: 73vh;"></canvas>
-			<!-- <div id="newPage">
-				+
-			</div> -->
-			<a id = "newPage" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
+			<div id="newPage">
+				<i class="bi bi-file-earmark-plus-fill"></i>
+			</div>
+			<!-- <a id = "newPage" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
 				<!-- <i class="bi bi-stars"></i> -->
 				<i class="bi bi-file-earmark-plus-fill"></i>
-			</a>
+			</a> -->
 		</div>
 		
 		<div id="myModal" class="modal">
