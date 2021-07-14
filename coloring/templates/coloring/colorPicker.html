@@ -44,10 +44,10 @@
 
 		.parallelogram {
 			width: 100px;
-			height: 165px;
+			height: 150px;
 			background: #f1f1f1;
 			padding: 5px;
-			margin: 10px 10px 10px 10px;
+			margin: 10px 10px 0px 10px;
             transform: skew(0deg);
             position: relative;
 		}
@@ -57,13 +57,15 @@
 			background: #f1f1f1;
 			padding: 5px;
 			margin: 10px 10px 10px 10px;
-            transform: translateY(-30px) scale(1.05);
+            transform: translateY(-35px) scale(1.05);
             filter: drop-shadow(5px 5px 10px black);
+            position: relative;
+            z-index: -1;
         }
         .parallelogramLong {
             width: 800px;
-			height: 190px;
-			padding: 5px;
+			height: 180px;
+			padding: 10px 0 10px 0;
 			margin: 10px 10px 10px 10px;
             transform: skew(-20deg) translateY(-30px) scale(1.05);
             filter: drop-shadow(5px 5px 10px black);
@@ -74,29 +76,29 @@
 </head>
 <body>
 	<div class="container-fluid">
-        <div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #000000;">
+        <div class="row align-items-center" id = 'titlePlate' style = "border: 5px solid #907f9f;">
 			<div class="col-2">
-				<a id = "exitColorPicker" href="new_interaction" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<a id = "exitColorPicker" style = "background-color: #006d77" href="new_interaction" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
 					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
 				</a>
 			</div>
-			<div class="col-10 d-flex justify-content-center" style = "border-left: 5px solid #000000">
-				<h1 style = "font-size: 7rem; color: #006d77"> Color Picker </h1>
+			<div class="col-10 d-flex justify-content-center" style = "border-left: 5px solid #907f9f">
+				<h1 style = "font-size: 7.2rem; color: #006d77;"> Color Picker </h1>
 			</div>
         </div>
 	</div>
-	<div class="container-fluid" style="height: 95vh; background-image: url(./../static/coloring/images/Gallery.jpeg); background-size: 100% 100%;">
+	<div class="container-fluid" style="height: 91vh; background-image: url(./../static/coloring/images/Gallery.jpeg); background-size: 100% 100%;">
         <div style="padding: 10px 50px 30px 50px;">
             <div class = "container-fluid">
-                <div id = "selectedColorDisplay" class = "row d-flex justify-content-center" style = "border: 5px solid #000000">
-                    <h1 style = "font-size: 6rem; -webkit-text-stroke: 2px black; color: white;"> Selected Color </h1>
+                <div id = "selectedColorDisplay" class = "row d-flex justify-content-center align-items-center" style = "border: 5px solid #000000; height: 120px">
+                    <h1 style = "font-size: 4.5rem; text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF; color: black;"> Selected Color </h1>
                 </div>
             </div>
         </div>
-        <div style="padding: 0 50px 50px 50px;">
-            <div class = 'container-fluid' style="height: 80vh">
+        <div style="padding: 18px 0px 0px 50px;">
+            <div class = 'container-fluid' style="height: 78vh">
                 <div class = "row parallelogramLong" style = "background-color: rgba(255, 0, 0, 0.26); height: 14%">
                     <div id = "#FF0000" onclick = "color('#FF0000')" class = "col parallelogram" style = 'background-color: #FF0000' ></div>
                     <div id = "#FF8181" onclick = "color('#FF8181')" class = "col parallelogram" style = 'background-color: #FF8181'></div>

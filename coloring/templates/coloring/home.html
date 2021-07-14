@@ -20,12 +20,12 @@
     box-sizing: border-box;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
     transform: rotate(-4.1deg);
-	background: #006d77; 
+	background: #fdfcdc; 
 	filter: drop-shadow(10px 10px 10px #907f9f);
 	}
 
 	#paperInterior {
-    color: #fdfcdc;
+    color: #006d77;
     text-decoration: none;
     background-color: none;
     transform: rotate(4.1deg);
@@ -35,6 +35,7 @@
     padding-top: 4.5vh;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
 	line-height: 130%;
+	letter-spacing: 2px;
 	}
 
 	#startButton {
@@ -80,15 +81,15 @@
 			mouseOutStart()
 		};
 		function mouseOverStart() {
-			startPaper.style.backgroundColor = "#00a3b2";
-			startPaper.style.filter = "drop-shadow(20px 20px 20px #6a5878)";
-			startDrawing.style.color = "#fdf7dc";
-			startDrawing.style.textShadow = "-8px 8px 0 #006d77, 8px 8px 0 #006d77, 8px -8px 0 #006d77, -8px -8px 0 #006d77";
+			startPaper.style.backgroundColor = "#fdf7dc";
+			startPaper.style.filter = "drop-shadow(30px 30px 30px #6a5878)";
+			startDrawing.style.color = "#00a3b2";
+			startDrawing.style.textShadow = "-1px 5px 0 #006d77, 5px 5px 0 #006d77, 5px -1px 0 #006d77, -1px -1px 0 #006d77";
 		}
 		function mouseOutStart() {
-			startPaper.style.backgroundColor = "#006d77";
+			startPaper.style.backgroundColor = "#fdfcdc";
 			startPaper.style.filter = "drop-shadow(10px 10px 10px #907f9f)";
-			startDrawing.style.color = "#fdfcdc";
+			startDrawing.style.color = "#006d77";
 			startDrawing.style.textShadow = "-1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000";
 		}
 		var galleryButton = document.getElementById('galleryButton');
