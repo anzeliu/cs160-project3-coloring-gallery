@@ -44,11 +44,11 @@
 
 		.parallelogram {
 			width: 100px;
-			height: 180px;
+			height: 170px;
 			background: #f1f1f1;
 			padding: 5px;
 			margin: 10px 20px 10px 10px;
-            transform: skew(-20deg);
+            transform: skew(0deg);
             position: relative;
 		}
         .parallelogramLarge {
@@ -57,13 +57,12 @@
 			background: #f1f1f1;
 			padding: 5px;
 			margin: 10px 20px 20px 10px;
-            transform: skew(-20deg) translateY(-30px) scale(1.05);
+            transform: translateY(-30px) scale(1.05);
             filter: drop-shadow(5px 5px 10px black);
         }
         .parallelogramLong {
             width: 800px;
-			height: 180px;
-			background: #f1f1f1;
+			height: 190px;
 			padding: 5px;
 			margin: 10px 20px 20px 10px;
             transform: skew(-20deg) translateY(-30px) scale(1.05);
@@ -98,7 +97,7 @@
         </div>
         <div style="padding: 0 50px 50px 50px;">
             <div class = 'container-fluid' style="height: 80vh">
-                <div class = "row parallelogramLong" style = "height: 14%">
+                <div class = "row parallelogramLong" style = "background-color: rgba(255, 0, 0, 0.26); height: 15%">
                     <div id = "#FF0000" onclick = "color('#FF0000')" class = "col parallelogram" style = 'background-color: #FF0000' ></div>
                     <div id = "#FF8181" onclick = "color('#FF8181')" class = "col parallelogram" style = 'background-color: #FF8181'></div>
                     <div  id = "#9C0303" onclick = "color('#9C0303')" class = "col parallelogram" style = 'background-color: #9C0303'></div>
