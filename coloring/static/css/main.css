@@ -88,7 +88,7 @@
 /* Modal Content/Box */
 
 .modal-content {
-    background-color: #fbfbdb;
+    background-color: #fefefe;
     margin: 15% auto;
     /* 15% from the top and centered */
     border: 1px solid #888;
@@ -110,15 +110,15 @@
     width: 80%;
     height: 95%;
     margin: auto;
-    background: #fbfbdb;
-    border: 2px solid #000000;
+    background: #006d77;
+    border: 2px solid #b19c7b;
     box-sizing: border-box;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
     transform: rotate(-4.1deg);
 }
 
 #paperInterior {
-    color: black;
+    color: #fdfcdc;
     text-decoration: none;
     background-color: none;
     transform: rotate(4.1deg);
@@ -126,13 +126,15 @@
     text-align: center;
     font-size: 16vw;
     padding-top: 4.5vh;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 
 #startButton {
-    background: #fbfbdb;
+    background: #006d77;
 }
 
 #galleryButton {
+    border-color: #b19c7b;
     border-style: solid;
     border-width: .3vh;
     font-size: 16vw;

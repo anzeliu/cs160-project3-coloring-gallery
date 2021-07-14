@@ -11,6 +11,45 @@
 	<script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
 
+<style>
+	#startPaper {
+    width: 80%;
+    height: 95%;
+    margin: auto;
+    border: 2px solid #b19c7b;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    transform: rotate(-4.1deg);
+	background: #006d77; 
+	filter: drop-shadow(10px 10px 10px #907f9f);
+	}
+
+	#paperInterior {
+    color: #fdfcdc;
+    text-decoration: none;
+    background-color: none;
+    transform: rotate(4.1deg);
+    margin: auto;
+    text-align: center;
+    font-size: 18vw;
+    padding-top: 4.5vh;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+	line-height: 130%;
+	}
+
+	#startButton {
+    background: #006d77;
+	}
+
+	#galleryButton {
+    border-color: #006d77;
+    border-style: solid;
+    border-width: .3vh;
+    font-size: 16vw;
+    text-align: center;
+	background-color: #907f9f;
+	}
+</style>
 </head>
 <body>
 	<div class="container-fluid" style="background-image: url(./../static/coloring/images/pexels-fwstudio-172296.jpeg); background-size: 100% 100%;">
@@ -24,11 +63,47 @@
 			</div>
 		</div>
 		<div class = "row" style="height: 30vh;"></div>
-		<div class = "row" style="height: 15vh; background-color: orange;">
+		<div class = "row" style="height: 15vh;">
 			<div id="galleryButton" class="col-12" onclick="location.href = 'gallery';">
 					Gallery <i class="bi bi-images"></i>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		var startPaper = document.getElementById('startPaper');
+		var startDrawing = document.getElementById('paperInterior');
+		startPaper.onmouseover = function() {
+			mouseOverStart()
+		};
+		startPaper.onmouseout = function() {
+			mouseOutStart()
+		};
+		function mouseOverStart() {
+			startPaper.style.backgroundColor = "#00a3b2";
+			startPaper.style.filter = "drop-shadow(20px 20px 20px #6a5878)";
+			startDrawing.style.color = "#fdf7dc";
+			startDrawing.style.textShadow = "-8px 8px 0 #006d77, 8px 8px 0 #006d77, 8px -8px 0 #006d77, -8px -8px 0 #006d77";
+		}
+		function mouseOutStart() {
+			startPaper.style.backgroundColor = "#006d77";
+			startPaper.style.filter = "drop-shadow(10px 10px 10px #907f9f)";
+			startDrawing.style.color = "#fdfcdc";
+			startDrawing.style.textShadow = "-1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000";
+		}
+		var galleryButton = document.getElementById('galleryButton');
+		galleryButton.onmouseover = function() {
+			mouseOverGallery()
+		};
+		galleryButton.onmouseout = function() {
+			mouseOutGallery()
+		};
+		function mouseOverGallery() {
+			galleryButton.style.backgroundColor = "#b6abc0";
+		}
+		function mouseOutGallery() {
+			galleryButton.style.backgroundColor = "#907f9f";
+		}
+	</script>
 </body>
 </html>
