@@ -83,13 +83,11 @@
     text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
     border-width: .3vh;
     border-style: solid;
-    border-color: black;
+    border-color: #006d77;
     text-align: center;
     font-size: 5.5vw;
     line-height: 16.6vw;
 	}
-
-
 
 	.modal {
     display: none;
@@ -440,7 +438,7 @@
 			<!-- <div id="newPage">
 				+
 			</div> -->
-			<a id = "newPage" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+			<a id = "newPage" class = 'btn btn-secondary d-flex justify-content-center' role = 'button' aria-pressed = 'true'>
 				<!-- <i class="bi bi-stars"></i> -->
 				<i class="bi bi-file-earmark-plus-fill"></i>
 			</a>
@@ -617,8 +615,6 @@
 				currToolButton();
 			}
 
-			
-
 			function saveToGallery() {
 				var savedPics = JSON.parse(localStorage.getItem("savedPics"));
 				if (savedPics == null) {
@@ -663,9 +659,9 @@
 			}
 
 			function overPadButton(button) {
-				if ((button == "undoButton" && previousGroups.length == 0) || (button == "redoButton" && undoneGroups.length == 0)) {
-				}
-				else {
+				prevGroups = getPreviousGroups();
+				unGroups = getUndoneGroups();
+				if (!(button == "undoButton" || button == "redoButton")) {
 					document.getElementById(button).style.backgroundColor = "#FFDDD2";
 				}
 			}
