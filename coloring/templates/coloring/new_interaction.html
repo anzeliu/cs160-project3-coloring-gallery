@@ -38,6 +38,107 @@
 		margin-right: auto;
 		display: block;
 	}
+
+	.padButton {
+    background-color: #E29578;
+    color: black;
+    border-width: .vh;
+    border-style: solid;
+    border-color: #907f9f;
+    font-size: 5vh;
+    font-weight: 900;
+    text-align: center;
+    line-height: 16.6vw;
+	}
+
+	.padIcon {
+    	height: 50px;
+	}
+
+	#psheet {
+    position: absolute;
+    top: 11vh;
+    left: 4vw;
+    height: 75vh;
+    width: 92vw;
+    background-color: #fdfcdc;
+    transform: rotate(-2.1deg);
+	}
+
+	.icon {
+    position: relative;
+    padding-top: 5vh;
+	}
+
+	#undoButton {
+    color: rgba(0, 0, 0, .5);
+	}
+
+	#redoButton {
+    color: rgba(0, 0, 0, .5);
+	}
+
+	.colorButton {
+    color: black;
+    text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
+    border-width: .3vh;
+    border-style: solid;
+    border-color: black;
+    text-align: center;
+    font-size: 5.5vw;
+    line-height: 16.6vw;
+	}
+
+	#newPage {
+    position: relative;
+    top: -74.7vh;
+    left: 79.5vw;
+    height: 7vh;
+    width: 7vh;
+    border-width: .5vh;
+    border-style: groove;
+    text-align: center;
+    font-size: 10vh;
+    line-height: 4vh;
+	}
+
+	.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: fbfbdb;
+    /* Fallback color */
+    background-color: rgba(251, 251, 219, 0.4);
+    /* Black w/ opacity */
+	}
+
+
+	/* Modal Content/Box */
+	.modal-content {
+    	background-color: #fbfbdb;
+    	margin: 15% auto;
+    	/* 15% from the top and centered */
+    	border: 1px solid #888;
+    	width: 80%;
+	}
+
+	.close:hover,
+	.close:focus {
+    	color: black;
+    	text-decoration: none;
+    	cursor: pointer;
+	}
 </style>
 
 <script type="text/javascript" canvas="canvas">
@@ -316,19 +417,19 @@
 <body style="overflow: hidden;">
 	<div class="container-fluid" style="height: 100vh; background-image: url(./../static/coloring/images/pexels-fwstudio-172296.jpeg); background-size: 100% 100%;">
 		<div class="row" style="padding-top: 0; margin-top: 0; height: 16.6vw">
-			<div class="col-2 padButton" onclick="goHome()">
+			<div id = "homeButton" class="col-2 padButton" onclick="goHome()" onmouseover = "overPadButton('homeButton')" onmouseout = "outPadButton('homeButton')">
 				<i class="bi bi-house-door-fill"></i>
 			</div>
-			<div id="undoButton" class="col-2 padButton" onclick="undo()">
+			<div id="undoButton" class="col-2 padButton" onclick="undo()" onmouseover = "overPadButton('undoButton')" onmouseout = "outPadButton('undoButton')">
 				<i class="bi bi-arrow-counterclockwise"></i>
 			</div>
-			<div id = "redoButton" class="col-2 padButton" onclick="redo()">
+			<div id = "redoButton" class="col-2 padButton" onclick="redo()" onmouseover = "overPadButton('redoButton')" onmouseout = "outPadButton('redoButton')">
 				<i class="bi bi-arrow-clockwise"></i>
 			</div>
-			<div id="saveButton" class="col-2 padButton" onclick="saveClick()">
+			<div id="saveButton" class="col-2 padButton" onclick="saveClick()" onmouseover = "overPadButton('saveButton')" onmouseout = "outPadButton('saveButton')">
 				<i class="bi bi-save2-fill"></i>
 			</div>
-			<div class="col-4 colorButton strokeColor" onclick="goToColorPicker()">
+			<div class="col-4 colorButton strokeColor" onclick="goToColorPicker()" onmouseover = "overPadButton('undoButton')" onmouseout = "outPadButton('undoButton')">
 				Select Color
 			</div>
 		</div>
@@ -343,7 +444,7 @@
 			<!-- Modal content -->
 			<div class="modal-content" style="width: 90%;">
 				<div class="container-fluid" style="border-style: solid; border-width: .3vh;">
-					<div class="row" style="font-size: 5vh; border-bottom-style: solid; border-width: .3vh;">
+					<div class="row" style="font-size: 5vh; border-bottom-style: solid; border-width: .3vh; background: #ffddd2">
 						<div class="col-2 modalClose" style="border-right-style: solid; border-right-width: .3vh; text-align: center; background-color: lightgray;"> X </div>
 						<div class="col-10"> Save & Export</div>
 					</div>
@@ -547,12 +648,23 @@
 
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+				if (event.target == newPageModal) {
+					newPageModal.style.display = "none";
+				}
 			}
-			if (event.target == newPageModal) {
-				newPageModal.style.display = "none";
+
+			function overPadButton(button) {
+				if ((button == "undoButton" && previousGroups.length == 0) || (button == "redoButton" && undoneGroups.length == 0)) {
+				}
+				else {
+					document.getElementById(button).style.backgroundColor = "#FFDDD2";
+				}
 			}
+			function outPadButton(button) {
+				document.getElementById(button).style.backgroundColor = "#E29578";
 			}
 	</script>
 </body>
