@@ -89,18 +89,7 @@
     line-height: 16.6vw;
 	}
 
-	#newPage {
-    position: relative;
-    top: -74.7vh;
-    left: 79.5vw;
-    height: 7vh;
-    width: 7vh;
-    border-width: .5vh;
-    border-style: groove;
-    text-align: center;
-    font-size: 10vh;
-    line-height: 4vh;
-	}
+
 
 	.modal {
     display: none;
@@ -306,17 +295,30 @@
 					drawUp(event, 60);
 					curPath.lastSegment.opacity = 0;
 				}
-
+				var mask = new Group();
 				//TODO: Make Eraser tool
 				eraser = new Tool();
 				eraser.onMouseDown = function(event) {
-					eraseDown(event, 100);
+					previousGroups.push(picture.exportJSON());
+					drawDown(event, 100);
+					var erasedGroup = new Group();
+					erasedGroup.children = picture.removeChildren();
+					erasedGroup.blendMode = "source-out";
+					erasedGroup.insert = false;
+
+					mask = new Group({
+						children: [curPath, erasedGroup],
+						blendMode: 'source-over'
+					})
 				}
 				eraser.onMouseDrag = function(event) {
 					curPath.add(event.point);
 				}
 				eraser.onMouseUp = function(event) {
-					drawUp(event, 20);
+					picture = mask;
+					undoneGroups = [];
+					$('#redoButton').css("color", "rgba(0,0,0,0.5)");
+					$('#undoButton').css("color", "black");
 					console.log(picture.children);
 				}
 				nothing = new Tool();
@@ -435,9 +437,13 @@
 		</div>
 		<div id="psheet">
 			<canvas id="myCanvas" width="750px" height="750px" style="width: 87vw; height: 73vh;"></canvas>
-			<div id="newPage">
+			<!-- <div id="newPage">
 				+
-			</div>
+			</div> -->
+			<a id = "newPage" class = 'btn btn-secondary d-flex justify-content-center' rolw = 'button' aria-pressed = 'true'>
+				<!-- <i class="bi bi-stars"></i> -->
+				<i class="bi bi-file-earmark-plus-fill"></i>
+			</a>
 		</div>
 		
 		<div id="myModal" class="modal">

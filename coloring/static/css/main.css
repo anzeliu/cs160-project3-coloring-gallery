@@ -52,14 +52,20 @@
 
 #newPage {
     position: relative;
+    background-color: #fdfcdc;
+    border-color: #fdfcdc;
     top: -74.7vh;
-    left: 79.5vw;
+    left: 79.55vw;
+    /* left: 0; */
     height: 7vh;
     width: 7vh;
+    padding-top: 0;
+    margin-top: 0;
+    margin-right: 0;
     border-width: .5vh;
     border-style: groove;
     text-align: center;
-    font-size: 10vh;
+    font-size: 6vh;
     line-height: 4vh;
 }
 
@@ -156,11 +162,11 @@
 }
 
 .picbtn {
-    background-color: #fbfbdb;
+    background-color: #FFF384;
     border-style: solid;
     border-color: black;
     border-width: .3vh;
     height: 25vh;
     width: 25vh;
-    box-shadow: .5vh .5vh rgba(0, 0, 0, .5);
+    box-shadow: .5vh 1.5vh rgba(0, 0, 0, .5);
 }
